@@ -1,0 +1,42 @@
+NAME
+    Data::Dump::Color - Data::Dump, but with color
+
+VERSION
+    version 0.01
+
+SYNOPSIS
+     use Data::Dump::Color;
+     dd(...);
+
+DESCRIPTION
+    WARNING: This is purely a proof-of-concept release.
+
+    Data::Dump::Color is a drop-in replacement for Data::Dump, but dumps
+    with color when output is terminal. The goal is producing pretty dumps
+    that are nice to look at. Data::Dump is a nice basis since its dumps are
+    already quite pretty (vertically aligned, etc).
+
+    Aside from color, there are a couple of niceties too like adding
+    comments containing array indices and total number of hash pairs.
+
+FUNCTIONS
+  dd(...)
+    Dump one or more data structures.
+
+TODO
+    *   Color themes, including ones that support 256 colors.
+
+SEE ALSO
+    Data::Dump
+
+    Data::Printer
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2012 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
