@@ -15,10 +15,11 @@ meta-spec:
 name: Data-Dump-Color
 requires:
   Data::Dump: 1.17
+  Exporter::Lite: 0
   String::Escape: 0
   Term::ANSIColor: 0
   perl: 5.010
 resources:
   homepage: http://metacpan.org/release/Data-Dump-Color
   repository: http://github.com/sharyanto/perl-Data-Dump-Color
-version: 0.01
+version: 0.02

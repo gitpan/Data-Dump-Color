@@ -12,7 +12,7 @@ use Term::ANSIColor;
 use Exporter::Lite;
 our @EXPORT = qw(dd);
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 sub dd {
     state $c0 = color("reset");
@@ -79,7 +79,7 @@ Data::Dump::Color - Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 

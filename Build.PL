@@ -17,13 +17,14 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "Data-Dump-Color",
-  "dist_version" => "0.01",
+  "dist_version" => "0.02",
   "license" => "perl",
   "module_name" => "Data::Dump::Color",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
     "Data::Dump" => "1.17",
+    "Exporter::Lite" => 0,
     "String::Escape" => 0,
     "Term::ANSIColor" => 0,
     "perl" => "5.010"
