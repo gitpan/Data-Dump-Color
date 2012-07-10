@@ -1,5 +1,5 @@
 {
-   "abstract" : "Data::Dump, but with color",
+   "abstract" : "Like Data::Dump, but with color",
    "author" : [
       "Steven Haryanto <stevenharyanto@gmail.com>"
    ],
@@ -26,7 +26,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Data::Dump" : "1.17",
+            "Data::Dump" : "1.21",
             "Exporter::Lite" : 0,
             "String::Escape" : 0,
             "Term::ANSIColor" : 0,
@@ -41,6 +41,6 @@
          "url" : "http://github.com/sharyanto/perl-Data-Dump-Color"
       }
    },
-   "version" : "0.02"
+   "version" : "0.03"
 }
 

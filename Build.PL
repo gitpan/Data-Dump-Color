@@ -12,18 +12,18 @@ my %module_build_args = (
   "configure_requires" => {
     "Module::Build" => "0.3601"
   },
-  "dist_abstract" => "Data::Dump, but with color",
+  "dist_abstract" => "Like Data::Dump, but with color",
   "dist_author" => [
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "Data-Dump-Color",
-  "dist_version" => "0.02",
+  "dist_version" => "0.03",
   "license" => "perl",
   "module_name" => "Data::Dump::Color",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
-    "Data::Dump" => "1.17",
+    "Data::Dump" => "1.21",
     "Exporter::Lite" => 0,
     "String::Escape" => 0,
     "Term::ANSIColor" => 0,
