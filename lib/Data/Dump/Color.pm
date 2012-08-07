@@ -9,7 +9,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -572,18 +572,19 @@ sub quote {
 }
 
 1;
+# ABSTRACT: Like Data::Dump, but with color
 
 
-
+__END__
 =pod
 
 =head1 NAME
 
-Data::Dump::Color
+Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -684,10 +685,6 @@ can modify how the objects are dumped.
 
 =back
 
-=head1 NAME
-
-Data::Dump::Color - Like Data::Dump, but with color
-
 =head1 CONFIGURATION
 
 There are a few global variables that can be set to modify the output
@@ -744,7 +741,7 @@ returns C<'(1, 2, 3)'>.
 L<Data::Dump::Filtered>, L<Data::Dump::Trace>, L<Data::Dumper>, L<JSON>,
 L<Storable>
 
-=head1 AUTHORS
+=head1 ORIGINAL AUTHORS
 
 The C<Data::Dump> module is written by Gisle Aas <gisle@aas.no>, based
 on C<Data::Dumper> by Gurusamy Sarathy <gsar@umich.edu>.
@@ -767,7 +764,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 
