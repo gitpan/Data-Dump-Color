@@ -26,10 +26,9 @@
       },
       "runtime" : {
          "requires" : {
-            "Data::Dump" : "1.21",
-            "String::Escape" : 0,
-            "Term::ANSIColor" : 0,
-            "perl" : "5.010"
+            "Data::Dump::FilterContext" : 0,
+            "Data::Dump::Filtered" : 0,
+            "perl" : "5.010001"
          }
       }
    },
@@ -40,6 +39,6 @@
          "url" : "http://github.com/sharyanto/perl-Data-Dump-Color"
       }
    },
-   "version" : "0.04"
+   "version" : "0.05"
 }
 

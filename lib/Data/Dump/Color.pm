@@ -1,5 +1,6 @@
 package Data::Dump::Color;
 
+use 5.010;
 use strict;
 use vars qw(@EXPORT @EXPORT_OK $VERSION $DEBUG);
 use subs qq(dump);
@@ -9,11 +10,12 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 $DEBUG = 0;
 
 use overload ();
 use vars qw(%seen %refcnt @dump @fixup %require $TRY_BASE64 @FILTERS $INDENT %COLORS);
+use vars qw($COLOR);
 
 use Term::ANSIColor;
 
@@ -33,7 +35,11 @@ $INDENT = "  " unless defined $INDENT;
 my $_colreset = color('reset');
 sub _col {
     my ($col, $str) = @_;
-    color($COLORS{$col}) . $str . $_colreset;
+    if ($COLOR // $ENV{COLOR} // (-t STDOUT)) {
+        color($COLORS{$col}) . $str . $_colreset;
+    } else {
+        $str;
+    }
 }
 
 sub dump
@@ -584,7 +590,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -708,6 +714,22 @@ for the dump output.  The default is 50.  Set it to 0 to disable base64 dumps.
 =item %Data::Dump::Color::COLORS
 
 Define colors.
+
+=item $Data::Dump::COLOR
+
+If set, then will force color output on or off. By default, will only output
+color when in interactive terminal. See also: C<COLOR> environment.
+
+=back
+
+=head1 ENVIRONMENT
+
+=over 4
+
+=item * COLOR
+
+If set, then will force color output on or off. By default, will only output
+color when in interactive terminal. See also: C<$Data::Dump::COLOR>.
 
 =back
 
