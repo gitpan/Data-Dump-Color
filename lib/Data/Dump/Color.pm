@@ -1,6 +1,6 @@
 package Data::Dump::Color;
 
-use 5.010;
+use 5.010001;
 use strict;
 use vars qw(@EXPORT @EXPORT_OK $VERSION $DEBUG);
 use subs qq(dump);
@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.05'; # VERSION
+our $VERSION = '0.06'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -95,9 +95,6 @@ sub dump
 	$out = "do {\n$out}";
     }
 
-    #use Data::Dumper;   print Dumper(\%refcnt);
-    #use Data::Dumper;   print Dumper(\%seen);
-
     print STDERR "$out\n" unless defined wantarray;
     $out;
 }
@@ -132,7 +129,7 @@ sub _dump
     my($class, $type, $id);
     my $strval = overload::StrVal($rval);
     # Parse $strval without using regexps, in order not to clobber $1, $2,...
-    if ((my $i = index($strval, "=")) >= 0) {
+    if ((my $i = rindex($strval, "=")) >= 0) {
 	$class = substr($strval, 0, $i);
 	$strval = substr($strval, $i+1);
     }
@@ -380,12 +377,13 @@ sub _dump
 	$out = "{$nl";
 	$out .= "$INDENT# $tied$nl" if $tied;
 	while (@keys) {
-	    my $key = _col(key => shift(@keys));
+	    my $key = shift(@keys);
 	    my $val = shift @vals;
 	    my $vpad = $INDENT . (" " x ($klen_pad ? $klen_pad + 4 : 0));
 	    $val =~ s/\n/\n$vpad/gm;
 	    my $kpad = $nl ? $INDENT : " ";
 	    $key .= " " x ($klen_pad - length($key)) if $nl;
+            $key = _col(key => $key);
 	    $out .= "$kpad$key => $val,$nl";
 	}
 	$out =~ s/,$/ / unless $nl;
@@ -509,7 +507,7 @@ sub str {
       for ($_[0]) {
       # Check for repeated string
       if (/^(.)\1\1\1/s) {
-          # seems to be a repating sequence, let's check if it really is
+          # seems to be a repeating sequence, let's check if it really is
           # without backtracking
           unless (/[^\Q$1\E]/) {
               my $base = quote($1);
@@ -580,8 +578,8 @@ sub quote {
 1;
 # ABSTRACT: Like Data::Dump, but with color
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -590,7 +588,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 SYNOPSIS
 
@@ -691,6 +689,8 @@ can modify how the objects are dumped.
 
 =back
 
+=for Pod::Coverage .+
+
 =head1 CONFIGURATION
 
 There are a few global variables that can be set to modify the output
@@ -780,10 +780,9 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Steven Haryanto.
+This software is copyright (c) 2013 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
