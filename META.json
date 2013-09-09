@@ -14,14 +14,9 @@
    },
    "name" : "Data-Dump-Color",
    "prereqs" : {
-      "build" : {
-         "requires" : {
-            "Module::Build" : "0.3601"
-         }
-      },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.3601"
+            "ExtUtils::MakeMaker" : "6.30"
          }
       },
       "develop" : {
@@ -54,6 +49,6 @@
          "url" : "http://github.com/sharyanto/perl-Data-Dump-Color"
       }
    },
-   "version" : "0.07"
+   "version" : "0.08"
 }
 

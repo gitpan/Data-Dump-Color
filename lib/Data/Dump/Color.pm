@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.07'; # VERSION
+our $VERSION = '0.08'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -503,8 +503,8 @@ sub format_list
 	for (@elem) { s/^/$INDENT/gm; }
 	my @res = ("\n", $comment ? "$INDENT# $comment\n" : "");
         for my $i (0..$#elem) {
-            push @res, $elem[$i],
-                _col(comment=>", # ".("." x $extra->[0])."[$i]"), "\n";
+            push @res, $elem[$i], ", ",
+                _col(comment => "# ".("." x $extra->[0])."[$i]"), "\n";
         }
         join("", @res);
     } else {
@@ -598,7 +598,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
