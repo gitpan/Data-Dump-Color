@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.06'; # VERSION
+our $VERSION = '0.07'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -84,7 +84,8 @@ sub dump
     my $paren = (@dump != 1);
     $out .= "(" if $paren;
     $out .= format_list($paren, undef,
-			map {defined($_->[1]) ? $_->[1] : "\$".$_->[0]}
+			[0],
+                        map {defined($_->[1]) ? $_->[1] : "\$".$_->[0]}
 			    @dump
 		       );
     $out .= ")" if $paren;
@@ -302,7 +303,7 @@ sub _dump
 	    push(@vals, _dump($v, $name, [@$idx, "[$i]"], $tied, $pclass, $pidx));
 	    $i++;
 	}
-	$out = "[" . format_list(1, $tied, @vals) . "]";
+	$out = "[" . format_list(1, $tied, [scalar(@$idx)], @vals) . "]";
     }
     elsif ($type eq "HASH") {
 	my(@keys, @vals);
@@ -376,7 +377,8 @@ sub _dump
 	}
 	$out = "{$nl";
 	$out .= "$INDENT# $tied$nl" if $tied;
-	while (@keys) {
+	my $i = 0;
+        while (@keys) {
 	    my $key = shift(@keys);
 	    my $val = shift @vals;
 	    my $vpad = $INDENT . (" " x ($klen_pad ? $klen_pad + 4 : 0));
@@ -384,7 +386,10 @@ sub _dump
 	    my $kpad = $nl ? $INDENT : " ";
 	    $key .= " " x ($klen_pad - length($key)) if $nl;
             $key = _col(key => $key);
-	    $out .= "$kpad$key => $val,$nl";
+	    $out .= "$kpad$key => $val," .
+                ($nl ? _col(comment => " # ".("." x (@$idx-1))."{$i}") : "") .
+                    $nl;
+            $i++;
 	}
 	$out =~ s/,$/ / unless $nl;
 	$out .= "}";
@@ -462,6 +467,7 @@ sub format_list
 {
     my $paren = shift;
     my $comment = shift;
+    my $extra = shift; # [level, ]
     my $indent_lim = $paren ? 0 : 1;
     if (@_ > 3) {
 	# can we use range operator to shorten the list?
@@ -495,8 +501,12 @@ sub format_list
     if ($comment || (@_ > $indent_lim && (length($tmp) > 60 || $tmp =~ /\n/))) {
 	my @elem = @_;
 	for (@elem) { s/^/$INDENT/gm; }
-	return "\n" . ($comment ? "$INDENT# $comment\n" : "") .
-               join(",\n", @elem, "");
+	my @res = ("\n", $comment ? "$INDENT# $comment\n" : "");
+        for my $i (0..$#elem) {
+            push @res, $elem[$i],
+                _col(comment=>", # ".("." x $extra->[0])."[$i]"), "\n";
+        }
+        join("", @res);
     } else {
 	return join(", ", @_);
     }
@@ -588,7 +598,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 SYNOPSIS
 

@@ -23,4 +23,4 @@ requires:
 resources:
   homepage: http://metacpan.org/release/Data-Dump-Color
   repository: http://github.com/sharyanto/perl-Data-Dump-Color
-version: 0.06
+version: 0.07
