@@ -2,7 +2,7 @@ NAME
     Data::Dump::Color - Like Data::Dump, but with color
 
 VERSION
-    version 0.09
+    version 0.10
 
 SYNOPSIS
     Use it like you would Data::Dump, e.g.:
@@ -24,13 +24,16 @@ RESULTS
        "is",        # [1]
        "a",         # [2]
        "5-element", # [3]
-       "array", # [4]
+       "array",     # [4]
        {
-         0 => "with",  # .{0}
-         1 => "an",    # .{1}
-         2 => "extra", # .{2}
-         3 => "hash",  # .{3}
-       },
+         0  => "with",  # .{0}
+         1  => "an",    # .{1}
+         2  => "extra", # .{2}
+         3  => "hash",  # .{3}
+         4  => "at",    # .{4}
+         5  => "the",   # .{5}
+         16 => "end",   # .{6}
+       },           # [5]
      ]
 
     "[]" and "{}" brackets will indicate whether they are indexes to an
@@ -45,10 +48,13 @@ RESULTS
        "5-element",
        "array",
        {
-         0 => "with",
-         1 => "an",
-         2 => "extra",
-         3 => "hash",
+         0  => "with",
+         1  => "an",
+         2  => "extra",
+         3  => "hash",
+         4  => "at",
+         5  => "the",
+         16 => "end",
        },
      ]
 
