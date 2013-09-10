@@ -23,12 +23,8 @@ my %WriteMakefileArgs = (
     "Data::Dump::FilterContext" => 0,
     "Data::Dump::Filtered" => 0
   },
-  "TEST_REQUIRES" => {
-    "Capture::Tiny" => 0,
-    "Test::More" => "0.88",
-    "blib" => 0
-  },
-  "VERSION" => "0.08",
+  "TEST_REQUIRES" => {},
+  "VERSION" => "0.09",
   "test" => {
     "TESTS" => "t/*.t"
   }
