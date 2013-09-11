@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.11'; # VERSION
+our $VERSION = '0.12'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -117,7 +117,6 @@ sub dump
 	$cout = _col(keyword=>"do")." {\n$cout}";
     }
 
-    print "$out\n"; # TMP
     print STDERR "$cout\n" unless defined wantarray;
     $cout;
 }
@@ -702,7 +701,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 SYNOPSIS
 
