@@ -2,7 +2,7 @@ NAME
     Data::Dump::Color - Like Data::Dump, but with color
 
 VERSION
-    version 0.10
+    version 0.11
 
 SYNOPSIS
     Use it like you would Data::Dump, e.g.:
