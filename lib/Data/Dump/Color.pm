@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.14'; # VERSION
+our $VERSION = '0.15'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -402,6 +402,7 @@ sub _dump
 	    push(@cvals, $cv);
 
             my ($vlastline) = $v =~ /(.*)\z/;
+            #say "DEBUG: vlastline=<$vlastline>";
             my $lenvlastline = length($vlastline);
             push @lenvlastline, $lenvlastline;
 	}
@@ -442,7 +443,7 @@ sub _dump
             my $kvlen = $klen + $lenvlastline[$_];
             $maxkvlen = $kvlen if $maxkvlen < $kvlen;
         }
-        $maxkvlen = 60 if $maxkvlen > 60;
+        $maxkvlen = 80 if $maxkvlen > 80;
 
 	$out  = "{$nl";
 	$cout = "{$nl";
@@ -461,6 +462,7 @@ sub _dump
 	    my $kpad = $nl ? $INDENT : " ";
 	    $key .= " " x ($klen_pad - length($key)) if $nl;
             my $cpad = " " x ($maxkvlen - length($key) - $lenvlastline);
+            #say "DEBUG: key=<$key>, val=<$val>, lenvlastline=<$lenvlastline>, cpad=<$cpad>";
             my $idxcomment = sprintf "# %s{%${idxwidth}i}", "." x @$idx, $i;
 	    $out  .= "$kpad$key => $val," . ($nl && $INDEX ? " $cpad$idxcomment" : "") . $nl;
 	    $cout .= $kpad._col(key=>$key)." => $cval,".($nl && $INDEX ? " $cpad"._col(comment => $idxcomment) : "") . $nl;
@@ -486,8 +488,8 @@ sub _dump
     }
 
     if ($class && $ref) {
-	$cout = _col(keyword=>"bless")."($out, " . _col(string => quote($class)) . ")";
-	$out  = "bless($out, $class)";
+	$cout = _col(keyword=>"bless")."($cout, " . _col(string => quote($class)) . ")";
+	$out  = "bless($out, ".quote($class).")";
     }
     if ($comment) {
 	$comment =~ s/^/# /gm;
@@ -599,7 +601,7 @@ sub format_list
             my $lenvfirstline = length($vfirstline);
             $maxvlen = $lenvfirstline if $maxvlen < $lenvfirstline;
         }
-        $maxvlen = 60 if $maxvlen > 60;
+        $maxvlen = 80 if $maxvlen > 80;
         $maxvlen += length($INDENT);
 
 	my @res  = ("\n", $comment ? "$INDENT# $comment\n" : "");
@@ -708,7 +710,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =head1 SYNOPSIS
 
