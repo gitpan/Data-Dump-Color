@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.15'; # VERSION
+our $VERSION = '0.16'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -19,6 +19,7 @@ use vars qw(%COLORS $COLOR $INDEX);
 
 use Term::ANSIColor;
 require Win32::Console::ANSI if $^O =~ /Win/;
+use Scalar::Util qw(looks_like_number);
 
 $TRY_BASE64 = 50 unless defined $TRY_BASE64;
 $INDENT = "  " unless defined $INDENT;
@@ -27,7 +28,8 @@ $INDEX = 1 unless defined $INDEX;
 %COLORS = (
     Regexp  => 'yellow',
     undef   => 'bright_red',
-    number  => 'bright_blue',
+    number  => 'bright_blue', # floats can have different color
+    float   => 'cyan',
     string  => 'bright_yellow',
     object  => 'bright_green',
     glob    => 'bright_cyan',
@@ -291,9 +293,11 @@ sub _dump
 		$out  = 'undef';
 		$cout = _col('undef', "undef");
 	    }
-	    elsif (do {no warnings 'numeric'; $$rval + 0 eq $$rval}) {
-		$out  = $$rval;
-		$cout = _col(number => $$rval);
+	    elsif (my $ntype = looks_like_number($$rval)) {
+		my $val = $ntype < 20 ? qq("$$rval") : $$rval;
+                my $col = $ntype =~ /^(5|13|8704)$/ ? "float":"number";
+                $out  = $val;
+		$cout = _col($col => $val);
 	    }
 	    else {
 		$out  = str($$rval);
@@ -710,7 +714,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.15
+version 0.16
 
 =head1 SYNOPSIS
 
@@ -806,6 +810,23 @@ If set, then will force color output on or off. By default, will only output
 color when in interactive terminal. This is consulted when C<$COLOR> is not set.
 
 =back
+
+=head1 FAQ
+
+=head2 How do I turn off index comments?
+
+Set C<$Data::Dump::Color::INDEX> to 0.
+
+=head2 How do I turn off colors?
+
+Well, colors is sort of the point of this module. But if you want to turn it
+off, you can set environment COLOR to 0, or C<$Data::Dump::Color::COLOR> to 0.
+
+=head2 How do I customize colors?
+
+Fiddle the colors in C<%Data::Dump::Color::COLORS>. There will probably be
+proper color theme support in the future (based on
+L<SHARYANTO::Role::ColorTheme>.
 
 =head1 SEE ALSO
 

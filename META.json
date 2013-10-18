@@ -36,9 +36,10 @@
       },
       "test" : {
          "requires" : {
-            "Capture::Tiny" : "0",
-            "Test::More" : "0.88",
-            "blib" : "0"
+            "File::Spec" : "0",
+            "IO::Handle" : "0",
+            "IPC::Open3" : "0",
+            "Test::More" : "0"
          }
       }
    },
@@ -49,6 +50,6 @@
          "url" : "http://github.com/sharyanto/perl-Data-Dump-Color"
       }
    },
-   "version" : "0.15"
+   "version" : "0.16"
 }
 
