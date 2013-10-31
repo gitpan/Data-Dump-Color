@@ -4,7 +4,7 @@
       "Steven Haryanto <stevenharyanto@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.132140",
+   "generated_by" : "Dist::Zilla version 5.001, CPAN::Meta::Converter version 2.132140",
    "license" : [
       "perl_5"
    ],
@@ -44,12 +44,7 @@
       }
    },
    "release_status" : "stable",
-   "resources" : {
-      "homepage" : "http://metacpan.org/release/Data-Dump-Color",
-      "repository" : {
-         "url" : "http://github.com/sharyanto/perl-Data-Dump-Color"
-      }
-   },
-   "version" : "0.16"
+   "resources" : {},
+   "version" : "0.17"
 }
 

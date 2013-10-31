@@ -10,12 +10,12 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.16'; # VERSION
+our $VERSION = '0.17'; # VERSION
 $DEBUG = 0;
 
 use overload ();
 use vars qw(%seen %refcnt @fixup @cfixup %require $TRY_BASE64 @FILTERS $INDENT);
-use vars qw(%COLORS $COLOR $INDEX);
+use vars qw(%COLOR_THEMES %COLORS $COLOR $COLOR_THEME $COLOR_DEPTH $INDEX);
 
 use Term::ANSIColor;
 require Win32::Console::ANSI if $^O =~ /Win/;
@@ -25,27 +25,59 @@ $TRY_BASE64 = 50 unless defined $TRY_BASE64;
 $INDENT = "  " unless defined $INDENT;
 $INDEX = 1 unless defined $INDEX;
 
-%COLORS = (
-    Regexp  => 'yellow',
-    undef   => 'bright_red',
-    number  => 'bright_blue', # floats can have different color
-    float   => 'cyan',
-    string  => 'bright_yellow',
-    object  => 'bright_green',
-    glob    => 'bright_cyan',
-    key     => 'magenta',
-    comment => 'green',
-    keyword => 'blue',
-    symbol  => 'cyan',
-    linum   => 'black on_white', # file:line number
+%COLOR_THEMES = (
+    default16 => {
+        colors => {
+            Regexp  => 'yellow',
+            undef   => 'bright_red',
+            number  => 'bright_blue', # floats can have different color
+            float   => 'cyan',
+            string  => 'bright_yellow',
+            object  => 'bright_green',
+            glob    => 'bright_cyan',
+            key     => 'magenta',
+            comment => 'green',
+            keyword => 'blue',
+            symbol  => 'cyan',
+            linum   => 'black on_white', # file:line number
+        },
+    },
+    default256 => {
+        color_depth => 256,
+        colors => {
+            Regexp  => 135,
+            undef   => 124,
+            number  => 27,
+            float   => 51,
+            string  => 226,
+            object  => 10,
+            glob    => 10,
+            key     => 202,
+            comment => 34,
+            keyword => 21,
+            symbol  => 51,
+            linum   => 10,
+        },
+    },
 );
+
+$COLOR_THEME = ($ENV{TERM} // "") =~ /256/ ? 'default256' : 'default16';
+$COLOR_DEPTH = $COLOR_THEMES{$COLOR_THEME}{color_depth} // 16;
+%COLORS      = %{ $COLOR_THEMES{$COLOR_THEME}{colors} };
+
 my $_colreset = color('reset');
 sub _col {
     my ($col, $str) = @_;
+    my $colval = $COLORS{$col};
     if ($COLOR // $ENV{COLOR} // (-t STDOUT)) {
-        color($COLORS{$col}) . $str . $_colreset;
+        #say "D:col=$col, COLOR_DEPTH=$COLOR_DEPTH";
+        if ($COLOR_DEPTH >= 256 && $colval =~ /^\d+$/) {
+            return "\e[38;5;${colval}m" . $str . $_colreset;
+        } else {
+            return color($colval) . $str . $_colreset;
+        }
     } else {
-        $str;
+        return $str;
     }
 }
 
@@ -708,13 +740,15 @@ __END__
 
 =pod
 
+=encoding utf-8
+
 =head1 NAME
 
 Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.16
+version 0.17
 
 =head1 SYNOPSIS
 
@@ -831,6 +865,23 @@ L<SHARYANTO::Role::ColorTheme>.
 =head1 SEE ALSO
 
 L<Data::Dump>, L<JSON::Color>, L<YAML::Tiny::Color>
+
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/Data-Dump-Color>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/sharyanto/perl-Data-Dump-Color>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Dump-Color
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 

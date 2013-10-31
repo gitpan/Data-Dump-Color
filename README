@@ -2,7 +2,7 @@ NAME
     Data::Dump::Color - Like Data::Dump, but with color
 
 VERSION
-    version 0.16
+    version 0.17
 
 SYNOPSIS
     Use it like you would Data::Dump, e.g.:
@@ -99,6 +99,21 @@ FAQ
 
 SEE ALSO
     Data::Dump, JSON::Color, YAML::Tiny::Color
+
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/Data-Dump-Color>.
+
+SOURCE
+    Source repository is at
+    <https://github.com/sharyanto/perl-Data-Dump-Color>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Dump-Color
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
