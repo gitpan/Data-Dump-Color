@@ -24,7 +24,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Data-Dump-Color
   homepage: https://metacpan.org/release/Data-Dump-Color
   repository: git://github.com/sharyanto/perl-Data-Dump-Color.git
-version: 0.18
+version: 0.19
 x_Dist_Zilla:
   perl:
     version: 5.010001

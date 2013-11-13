@@ -8,6 +8,7 @@ Makefile.PL
 README
 dist.ini
 examples/example.pl
+examples/example2.pl
 lib/Data/Dump/Color.pm
 t/00-compile.t
 t/01-basics.t
