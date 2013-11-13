@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.17'; # VERSION
+our $VERSION = '0.18'; # VERSION
 $DEBUG = 0;
 
 use overload ();
@@ -438,7 +438,7 @@ sub _dump
 	    push(@cvals, $cv);
 
             my ($vlastline) = $v =~ /(.*)\z/;
-            #say "DEBUG: vlastline=<$vlastline>";
+            #say "DEBUG: v=<$v>, vlastline=<$vlastline>";
             my $lenvlastline = length($vlastline);
             push @lenvlastline, $lenvlastline;
 	}
@@ -492,12 +492,13 @@ sub _dump
 	    my $val  = shift @vals;
 	    my $cval = shift @cvals;
             my $lenvlastline = shift @lenvlastline;
-	    my $vpad = $INDENT . (" " x ($klen_pad ? $klen_pad + 4 : 0));
+	    my $vmultiline = length($val) > $lenvlastline;
+            my $vpad = $INDENT . (" " x ($klen_pad ? $klen_pad + 4 : 0));
 	    $val  =~ s/\n/\n$vpad/gm;
 	    $cval =~ s/\n/\n$vpad/gm;
 	    my $kpad = $nl ? $INDENT : " ";
 	    $key .= " " x ($klen_pad - length($key)) if $nl;
-            my $cpad = " " x ($maxkvlen - length($key) - $lenvlastline);
+            my $cpad = " " x ($maxkvlen - ($vmultiline ? -4 : length($key)) - $lenvlastline); # 4 is for " => " which is not present if we have multiline
             #say "DEBUG: key=<$key>, val=<$val>, lenvlastline=<$lenvlastline>, cpad=<$cpad>";
             my $idxcomment = sprintf "# %s{%${idxwidth}i}", "." x @$idx, $i;
 	    $out  .= "$kpad$key => $val," . ($nl && $INDEX ? " $cpad$idxcomment" : "") . $nl;
@@ -740,7 +741,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -748,7 +749,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.17
+version 0.18
 
 =head1 SYNOPSIS
 
@@ -761,6 +762,11 @@ Use it like you would Data::Dump, e.g.:
 This module aims to be a drop-in replacement for L<Data::Dump>. It adds colors
 to dumps. For more information, see Data::Dump. This documentation explains
 what's different between this module and Data::Dump.
+
+=head1 FUNCTIONS
+
+
+None are exported by default, but they are exportable.
 
 =for Pod::Coverage .+
 
@@ -876,8 +882,7 @@ Source repository is at L<https://github.com/sharyanto/perl-Data-Dump-Color>.
 
 =head1 BUGS
 
-Please report any bugs or feature requests on the bugtracker website
-http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Dump-Color
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=Data-Dump-Color>
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired

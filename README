@@ -2,7 +2,7 @@ NAME
     Data::Dump::Color - Like Data::Dump, but with color
 
 VERSION
-    version 0.17
+    version 0.18
 
 SYNOPSIS
     Use it like you would Data::Dump, e.g.:
@@ -14,6 +14,9 @@ DESCRIPTION
     colors to dumps. For more information, see Data::Dump. This
     documentation explains what's different between this module and
     Data::Dump.
+
+FUNCTIONS
+    None are exported by default, but they are exportable.
 
 RESULTS
     By default Data::Dump::Color shows array indexes or hash pair sequence
@@ -110,7 +113,7 @@ SOURCE
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
-    http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Dump-Color
+    <https://rt.cpan.org/Public/Dist/Display.html?Name=Data-Dump-Color>
 
     When submitting a bug or request, please include a test-file or a patch
     to an existing test-file that illustrates the bug or desired feature.
