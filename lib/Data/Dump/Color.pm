@@ -10,7 +10,7 @@ require Exporter;
 @EXPORT = qw(dd ddx);
 @EXPORT_OK = qw(dump pp dumpf quote);
 
-our $VERSION = '0.20'; # VERSION
+our $VERSION = '0.21'; # VERSION
 $DEBUG = $ENV{DEBUG};
 
 use overload ();
@@ -19,7 +19,7 @@ use vars qw(%COLOR_THEMES %COLORS $COLOR $COLOR_THEME $COLOR_DEPTH $INDEX);
 
 use Term::ANSIColor;
 require Win32::Console::ANSI if $^O =~ /Win/;
-use Scalar::Util qw(looks_like_number);
+use Scalar::Util::LooksLikeNumber qw(looks_like_number);
 
 $TRY_BASE64 = 50 unless defined $TRY_BASE64;
 $INDENT = "  " unless defined $INDENT;
@@ -749,7 +749,7 @@ Data::Dump::Color - Like Data::Dump, but with color
 
 =head1 VERSION
 
-version 0.20
+This document describes version 0.21 of Data::Dump::Color (from Perl distribution Data-Dump-Color), released on 2014-06-30.
 
 =head1 SYNOPSIS
 
@@ -762,11 +762,6 @@ Use it like you would Data::Dump, e.g.:
 This module aims to be a drop-in replacement for L<Data::Dump>. It adds colors
 to dumps. For more information, see Data::Dump. This documentation explains
 what's different between this module and Data::Dump.
-
-=head1 FUNCTIONS
-
-
-None are exported by default, but they are exportable.
 
 =for Pod::Coverage .+
 
@@ -894,7 +889,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Steven Haryanto.
+This software is copyright (c) 2014 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

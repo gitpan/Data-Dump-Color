@@ -2,7 +2,8 @@ NAME
     Data::Dump::Color - Like Data::Dump, but with color
 
 VERSION
-    version 0.20
+    This document describes version 0.21 of Data::Dump::Color (from Perl
+    distribution Data-Dump-Color), released on 2014-06-30.
 
 SYNOPSIS
     Use it like you would Data::Dump, e.g.:
@@ -14,9 +15,6 @@ DESCRIPTION
     colors to dumps. For more information, see Data::Dump. This
     documentation explains what's different between this module and
     Data::Dump.
-
-FUNCTIONS
-    None are exported by default, but they are exportable.
 
 RESULTS
     By default Data::Dump::Color shows array indexes or hash pair sequence
@@ -122,7 +120,7 @@ AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2013 by Steven Haryanto.
+    This software is copyright (c) 2014 by Steven Haryanto.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
