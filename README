@@ -2,8 +2,8 @@ NAME
     Data::Dump::Color - Like Data::Dump, but with color
 
 VERSION
-    This document describes version 0.21 of Data::Dump::Color (from Perl
-    distribution Data-Dump-Color), released on 2014-06-30.
+    This document describes version 0.22 of Data::Dump::Color (from Perl
+    distribution Data-Dump-Color), released on 2014-10-20.
 
 SYNOPSIS
     Use it like you would Data::Dump, e.g.:
@@ -12,13 +12,15 @@ SYNOPSIS
 
 DESCRIPTION
     This module aims to be a drop-in replacement for Data::Dump. It adds
-    colors to dumps. For more information, see Data::Dump. This
-    documentation explains what's different between this module and
-    Data::Dump.
+    colors to dumps. It also adds various visual aids in the comments, e.g.
+    array/hash index, depth indicator, and so on.
+
+    For more information, see Data::Dump. This documentation explains what's
+    different between this module and Data::Dump.
 
 RESULTS
-    By default Data::Dump::Color shows array indexes or hash pair sequence
-    in comments for visual aid, e.g.:
+    By default Data::Dump::Color shows array index or hash pair sequence in
+    comments for visual aid, e.g.:
 
      [
        "this",      # [0]
@@ -77,6 +79,10 @@ VARIABLES
     $INDEX => BOOL (default: 1)
         Whether to add array/hash index visual aid.
 
+    $LENTHRESHOLD => int (default: 500)
+        Add string length visual aid for hash key/hash value/array element
+        if length is at least this value.
+
 ENVIRONMENT
     *   COLOR
 
@@ -117,10 +123,10 @@ BUGS
     to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
-    Steven Haryanto <stevenharyanto@gmail.com>
+    perlancar <perlancar@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2014 by Steven Haryanto.
+    This software is copyright (c) 2014 by perlancar@cpan.org.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
